@@ -21,7 +21,7 @@ function App() {
       id: 3,
       text: "Food Shopping",
       day: "On 4th Jan, 2022 at 6:30 PM",
-      remider: false,
+      reminder: false,
     },
   ]);
 
@@ -30,13 +30,22 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
+  // Toggle Reminder
+  const toggleReminder = (id) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      )
+    );
+  };
+
   return (
     <div className="container">
       <Header title="Task Tracker" />
       {/* <Header /> default i.e., with no props */}
 
       {tasks.length > 0 ? (
-        <Task tasks={tasks} onDelete={deleteTask} />
+        <Task tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
       ) : (
         "No Tasks To Show"
       )}
